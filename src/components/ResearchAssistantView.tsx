@@ -827,30 +827,36 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
               {chatHistory.length === 0 ? (
                 <div className="flex flex-col justify-center space-y-5 sm:space-y-6 max-w-2xl mx-auto w-full">
                   {/* Gemini Welcome Headline */}
-                  <div className="space-y-2">
-                    <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-                      <span className="bg-gradient-to-r from-sky-400 via-indigo-400 to-amber-400 bg-clip-text text-transparent">
-                        Hello, {currentUser?.displayName?.split(' ')[0] || 'Researcher'}
-                      </span>
+                  <div className="flex flex-col gap-3">
+                    <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#6E7C89]">
+                      Workspace &middot; {documents.length} {documents.length === 1 ? 'source' : 'sources'} indexed
+                    </span>
+                    <h1 className="text-[28px] sm:text-[40px] font-extrabold tracking-[-0.035em] leading-[1.02] text-[#131C25] m-0">
+                      What do you need,<br />{currentUser?.displayName?.split(' ')[0] || 'Researcher'}?
                     </h1>
-                    <p className="text-base sm:text-xl font-semibold text-[#c4c7c5] tracking-tight">
-                      How can I help you synthesize or draft today?
+                    <p className="text-[14px] sm:text-[15px] leading-[1.5] text-[#3D4B58] m-0 max-w-[46ch]">
+                      Ask across every indexed document. Each answer comes back with a citation you can open.
                     </p>
                   </div>
 
                   {/* Quick Action Buttons */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full pt-1 sm:pt-2">
-                    {quickActionChips.map((chip) => (
+                    {quickActionChips.map((chip, idx) => (
                       <button
                         key={chip.id}
                         onClick={() => {
                           setInputQuery(chip.prompt);
                           setMode(chip.mode);
                         }}
-                        className="w-full flex items-center justify-between text-left px-4 py-3 bg-[#1e1f20] hover:bg-[#28292a] text-[#e3e3e3] border border-[#37393b] hover:border-[#c4c7c5] rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-xs active:scale-[0.99]"
+                        className="group w-full min-h-[52px] flex items-center gap-3 text-left px-4 py-3 bg-white hover:bg-[#F7F9FA] border border-[#D3D9DE] rounded-[10px] transition-colors cursor-pointer"
                       >
-                        <span className="truncate pr-2">{chip.label}</span>
-                        <Sparkles size={13} className="text-[#7dd3fc] flex-shrink-0" />
+                        <span className="font-mono text-[9.5px] font-semibold tracking-[0.1em] text-[#6E7C89] flex-shrink-0">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+                        <span className="flex-1 min-w-0 truncate text-[13.5px] font-semibold tracking-[-0.012em] text-[#131C25]">
+                          {chip.label.replace(/^[^\w]+\s*/, '')}
+                        </span>
+                        <span className="w-[9px] h-[2px] bg-[#F0B429] flex-shrink-0" />
                       </button>
                     ))}
                   </div>
@@ -864,7 +870,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                       <div key={msg.id} className="py-1">
                         {msg.role === 'user' ? (
                           <div className="flex justify-end my-3">
-                            <div className="bg-[#28292a] text-[#e3e3e3] px-5 py-3 rounded-2xl text-sm font-medium max-w-2xl border border-[#37393b]">
+                            <div className="bg-[#131C25] text-white px-[13px] py-[10px] rounded-[16px_16px_4px_16px] text-[13.5px] leading-[1.45] font-normal max-w-[78%]">
                               {msg.text}
                             </div>
                           </div>
@@ -951,7 +957,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
               )}
 
               {/* Floating Input Box matching the main site style */}
-              <div className="relative bg-[#171717] border border-[#262626] rounded-2xl p-3 flex flex-col gap-2 shadow-2xl mt-auto transition-all">
+              <div className="relative bg-[#FBFCFC] border border-[#D3D9DE] rounded-[20px] p-3 flex flex-col gap-2 mt-auto transition-all">
                 <textarea
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
@@ -962,7 +968,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                     }
                   }}
                   placeholder="Ask a question, synthesize legal terms, or draft a report..."
-                  className="w-full bg-transparent border-0 text-base sm:text-sm text-[#e3e3e3] placeholder-[#737373] focus:outline-none resize-none min-h-[40px] max-h-32 px-1 font-sans"
+                  className="w-full bg-transparent border-0 text-[16px] leading-[1.45] text-[#131C25] placeholder-[#8A95A0] focus:outline-none resize-none min-h-[40px] max-h-32 px-1 font-sans"
                   rows={2}
                 />
                 <div className="flex items-center justify-between pt-1 border-t border-[#262626]/40">
