@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal87 · Option A — Dock · Screen reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFF2;--card:#FFF;--ink:#131C25;--ink2:#3D4B58;--slate:#6E7C89;
+  --rule:#D3D9DE;--rule2:#E4E8EC;--mark:#F0B429;--mark-soft:#FBEECB;
+  --verify:#0F6E66;--alert:#BE4E36;
+  --sans:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --s:.66;--ds:.235;
+}
+@media(min-width:760px){:root{--s:.86;--ds:.46}}
+@media(min-width:1180px){:root{--s:.95;--ds:.60}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:26px 16px 90px}
+@media(min-width:760px){.wrap{padding:54px 40px 120px}}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+h1{font-size:clamp(28px,7vw,52px);line-height:1;letter-spacing:-.03em;font-weight:800;margin:13px 0 0}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--mark-soft) 62%);padding:0 .06em}
+.lede{font-size:15px;line-height:1.55;color:var(--ink2);max-width:58ch;margin:15px 0 0}
+h2{font-size:clamp(20px,4.6vw,30px);font-weight:800;letter-spacing:-.025em;margin:0}
+.sec{margin-top:52px;border-top:2px solid var(--ink);padding-top:16px}
+.sec p.d{font-size:14px;line-height:1.55;color:var(--ink2);max-width:56ch;margin:9px 0 0}
+.grid{display:flex;gap:26px;flex-wrap:wrap;margin-top:26px}
+.cell p.cap{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);margin:0 0 10px}
+.toolbar{position:sticky;top:0;z-index:40;background:var(--paper);padding:10px 0;margin-top:24px;border-bottom:1px solid var(--rule)}
+.tgl{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:transparent;border:1px solid var(--ink);color:var(--ink);padding:8px 12px;border-radius:999px;cursor:pointer;min-height:36px}
+.tgl[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.tgl:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+.phone-wrap{width:calc(390px * var(--s));height:calc(844px * var(--s));position:relative}
+.phone{position:absolute;top:0;left:0;width:390px;height:844px;transform:scale(var(--s));transform-origin:top left;background:var(--ink);border-radius:54px;padding:12px;box-shadow:0 22px 46px -22px rgba(19,28,37,.5),0 0 0 1px rgba(19,28,37,.9)}
+.screen{position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:var(--card);display:flex;flex-direction:column}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:118px;height:33px;background:#000;border-radius:20px;z-index:30}
+.statusbar{height:59px;flex:0 0 59px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 8px;font-family:var(--mono);font-size:13px;font-weight:600;z-index:20}
+.sb-r{display:flex;gap:5px;align-items:center}
+.sb-r i{display:block;background:currentColor}
+.sb-r .b1{width:16px;height:9px;border-radius:2px}
+.sb-r .b2{width:14px;height:9px;border-radius:1.5px}
+.sb-r .b3{width:22px;height:10px;border-radius:3px}
+.homebar{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:rgba(19,28,37,.32);z-index:31}
+.guides{position:absolute;inset:0;z-index:35;pointer-events:none;opacity:0;transition:opacity .18s}
+body.sg .guides{opacity:1}
+.g-top,.g-bot{position:absolute;left:0;right:0;border-top:1.5px dashed var(--alert)}
+.g-top{top:59px}.g-bot{bottom:34px}
+.g-lbl{position:absolute;right:8px;font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.1em;color:#fff;background:var(--alert);padding:2px 5px;border-radius:3px}
+.g-top .g-lbl{top:-9px}.g-bot .g-lbl{bottom:-9px}
+
+.app{flex:1;display:flex;flex-direction:column;min-height:0}
+.hd{flex:0 0 auto;padding:4px 18px 12px;display:flex;align-items:center;gap:10px;justify-content:space-between;border-bottom:1px solid var(--rule2)}
+.hd-t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.hd-t.ctr{align-items:center}
+.hd-e{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--slate)}
+.hd-n{font-size:16px;font-weight:700;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.avatar{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--mono);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.iconbtn{width:36px;height:36px;flex:0 0 36px;border-radius:10px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;background:#fff;font-family:var(--mono);font-size:14px;font-weight:600}
+.scroll{flex:1;overflow:hidden;padding:14px;display:flex;flex-direction:column;gap:12px}
+.q{align-self:flex-end;max-width:78%;background:var(--ink);color:#fff;padding:10px 13px;border-radius:16px 16px 4px 16px;font-size:13.5px;line-height:1.45}
+.a{font-size:13.5px;line-height:1.62;color:var(--ink2);margin:0}
+.cite{font-family:var(--mono);font-size:10px;font-weight:600;background:var(--mark-soft);border-bottom:1.5px solid var(--mark);padding:1px 4px;border-radius:3px;color:#7A5A08;white-space:nowrap}
+.trace{border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.trace-h{display:flex;align-items:center;gap:7px;padding:9px 11px;background:#F7F9FA;border-bottom:1px solid var(--rule2)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--verify);flex:0 0 7px}
+.trace-h span{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--verify)}
+.trace-r{display:flex;align-items:center;gap:9px;padding:9px 11px;border-bottom:1px solid var(--rule2)}
+.trace-r:last-child{border-bottom:0}
+.trace-r em{font-family:var(--mono);font-size:9.5px;font-style:normal;color:var(--slate);flex:0 0 42px}
+.trace-r p{margin:0;font-size:12px;line-height:1.35;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pct{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--verify)}
+.searchf{display:flex;align-items:center;gap:8px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;background:#FBFCFC;font-size:16px;color:var(--slate)}
+.chiprow{display:flex;gap:7px;overflow:hidden}
+.chip{font-family:var(--mono);font-size:9.5px;font-weight:600;border:1px solid var(--rule);border-radius:999px;padding:7px 11px;white-space:nowrap;color:var(--ink2);min-height:32px;display:flex;align-items:center}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.filerow{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid var(--rule2)}
+.ftype{width:32px;height:38px;flex:0 0 32px;border:1px solid var(--rule);border-radius:4px;background:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;font-family:var(--mono);font-size:8px;font-weight:600;color:var(--slate);position:relative}
+.ftype::before{content:'';position:absolute;top:6px;left:5px;right:5px;height:1px;background:var(--rule2);box-shadow:0 4px 0 var(--rule2),0 8px 0 var(--rule2)}
+.fmeta{min-width:0;flex:1}
+.fmeta b{display:block;font-size:13px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fmeta span{display:block;font-family:var(--mono);font-size:9.5px;color:var(--slate);margin-top:3px}
+.badge{font-family:var(--mono);font-size:9px;font-weight:600;padding:3px 6px;border-radius:4px;background:#E8F2F0;color:var(--verify);white-space:nowrap}
+.badge.wait{background:var(--mark-soft);color:#7A5A08}
+.badge.bad{background:#F7E3DE;color:var(--alert)}
+.prog{height:2px;background:var(--rule2);border-radius:2px;margin-top:7px;overflow:hidden}
+.prog i{display:block;height:100%;width:58%;background:var(--mark)}
+.composer{flex:0 0 auto;border-top:1px solid var(--rule2);background:#fff;padding:10px 14px}
+.cbox{display:flex;align-items:center;gap:9px;border:1px solid var(--rule);border-radius:26px;padding:7px 7px 7px 15px;background:#FBFCFC}
+.cbox p{margin:0;flex:1;font-size:16px;color:var(--slate)}
+.send{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.send.off{background:var(--rule);color:#fff}
+.dock{flex:0 0 auto;border-top:1px solid var(--rule2);background:rgba(255,255,255,.94);display:flex;padding:9px 6px 34px;align-items:flex-start}
+.dock a{flex:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:5px;min-height:44px;justify-content:flex-start}
+.dock i{width:22px;height:22px;border-radius:6px;border:1.8px solid var(--slate);display:block}
+.dock span{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.06em;color:var(--slate)}
+.dock a.on i{border-color:var(--ink);background:var(--ink)}
+.dock a.on span{color:var(--ink)}
+.dock a.cta{margin-top:-4px}
+.dock a.cta i{border-radius:50%;background:var(--mark);border-color:var(--mark);width:30px;height:30px}
+.dock a.cta span{color:var(--ink)}
+.actionrow{flex:0 0 auto;border-top:1px solid var(--rule2);background:#fff;padding:10px 14px 34px;display:flex;gap:9px}
+.btn{flex:1;min-height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}
+.btn.p{background:var(--ink);color:#fff}
+.btn.s{border:1px solid var(--rule);color:var(--ink)}
+.viewer{flex:1;background:#DFE4E8;overflow:hidden;display:flex;justify-content:center;padding-top:14px}
+.page{width:270px;background:#fff;box-shadow:0 6px 18px -8px rgba(0,0,0,.32);padding:20px 18px;font-size:8px;line-height:1.85;color:#8A939B}
+.page h5{margin:0 0 9px;font-size:10.5px;color:var(--ink);letter-spacing:-.01em}
+.page .ln{height:4px;background:#E7EBEE;border-radius:2px;margin-bottom:6px}
+.page .ln.s{width:62%}
+.page .hl{background:var(--mark-soft);box-shadow:0 0 0 2px var(--mark-soft);color:#5E4708;border-bottom:1.5px solid var(--mark)}
+.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 34px;gap:11px}
+.empty h4{font-size:21px;font-weight:800;letter-spacing:-.025em;margin:0}
+.empty p{margin:0;font-size:13.5px;line-height:1.5;color:var(--slate)}
+
+/* anatomy */
+.anat{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:20px 18px;margin-top:24px;max-width:640px}
+.anat h4{margin:0 0 4px;font-size:15px;letter-spacing:-.02em}
+.spec{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:1px;background:var(--rule2);border:1px solid var(--rule2)}
+.spec li{background:#fff;padding:10px 12px;display:flex;gap:12px;align-items:baseline;font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.spec code{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--ink);flex:0 0 96px;letter-spacing:.02em}
+
+/* desktop */
+.desk-wrap{width:calc(1440px * var(--ds));height:calc(860px * var(--ds));position:relative}
+.desk-wrap.md{width:calc(1100px * var(--ds));height:calc(760px * var(--ds))}
+.desk{position:absolute;top:0;left:0;width:1440px;height:860px;transform:scale(var(--ds));transform-origin:top left;background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 44px -24px rgba(19,28,37,.4)}
+.desk.md{width:1100px;height:760px}
+.desk-bar{height:36px;flex:0 0 36px;background:#F5F7F8;border-bottom:1px solid var(--rule2);display:flex;align-items:center;gap:7px;padding:0 14px}
+.desk-bar i{width:10px;height:10px;border-radius:50%;background:var(--rule);display:block}
+.desk-bar u{flex:1;text-decoration:none;margin-left:14px;height:19px;border-radius:4px;background:#fff;border:1px solid var(--rule2);font-family:var(--mono);font-size:9px;color:var(--slate);display:flex;align-items:center;padding:0 8px}
+.desk-body{flex:1;display:flex;min-height:0}
+.rail{flex:0 0 232px;border-right:1px solid var(--rule2);background:#F7F9FA;padding:20px 14px;display:flex;flex-direction:column;gap:6px}
+.rail-item{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink2)}
+.rail-item.on{background:#fff;border:1px solid var(--rule);color:var(--ink);font-weight:600}
+.rail-item i{width:16px;height:16px;border-radius:5px;border:1.8px solid currentColor;display:block;flex:0 0 16px}
+.rail-item.new{background:var(--mark);color:var(--ink);font-weight:700;justify-content:center;margin-bottom:12px}
+.rail-item.new i{border-radius:50%;background:var(--ink);border-color:var(--ink);width:13px;height:13px}
+.pane{flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--rule2)}
+.pane:last-child{border-right:0}
+.pane-h{padding:17px 22px;border-bottom:1px solid var(--rule2);display:flex;align-items:center;justify-content:space-between}
+.pane-h b{font-size:15px;letter-spacing:-.02em}
+.pane-b{flex:1;padding:18px 22px;overflow:hidden;display:flex;flex-direction:column;gap:13px}
+.pane-b .inner{max-width:720px;display:flex;flex-direction:column;gap:13px}
+.detail{flex:0 0 384px;background:#FBFCFC}
+.overlay{position:absolute;top:36px;right:0;bottom:0;width:400px;background:#fff;border-left:1px solid var(--rule);box-shadow:-16px 0 34px -22px rgba(19,28,37,.5);display:flex;flex-direction:column}
+.note{margin-top:24px;border-left:2px solid var(--mark);padding:2px 0 2px 14px;font-size:13px;line-height:1.55;color:var(--ink2);max-width:58ch}
+.note b{color:var(--ink)}
+footer{margin-top:66px;border-top:2px solid var(--ink);padding-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Signal87.ai · option A · screen reference</div>
+  <h1>Dock: <em>every control</em><br>in the bottom third.</h1>
+  <p class="lede">Five destinations, one persistent bar, safe-area padding baked in. The header carries no actions, so nothing competes with Safari's own chrome. Below: every mobile screen, the dock spec with measurements, and both desktop breakpoints.</p>
+
+  <div class="toolbar"><button class="tgl" id="gb" aria-pressed="false">Safe-area guides · off</button></div>
+
+  <!-- ANATOMY -->
+  <section class="sec">
+    <h2>Dock anatomy</h2>
+    <p class="d">This is the component that fixes the button placement. Build it first — every screen depends on it.</p>
+    <div class="anat">
+      <h4>Files · Ask · New · Traces · Account</h4>
+      <ul class="spec">
+        <li><code>container</code><span>Flex child of the shell, never <b>position: fixed</b>. 1px <b>--rule-2</b> top border, <b>--card</b> at 94% with backdrop blur.</span></li>
+        <li><code>padding</code><span>9px top, 6px sides, bottom is <b>max(10px, env(safe-area-inset-bottom))</b> — 34px on a notched iPhone, 10px on an SE.</span></li>
+        <li><code>item</code><span>Equal flex, min 44px tall, centred column: 22px icon over a 9px mono uppercase label, 5px gap.</span></li>
+        <li><code>states</code><span>Inactive <b>--slate</b> outline. Active <b>--ink</b> filled. No pill, no underline.</span></li>
+        <li><code>New</code><span>30px circle in <b>--mark</b>, offset 4px above its neighbours. Opens the picker and starts a thread.</span></li>
+        <li><code>behaviour</code><span>Tab switches preserve scroll position and do not refetch. Dock hides only in the document viewer.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- MOBILE SCREENS -->
+  <section class="sec">
+    <h2>Mobile screens</h2>
+    <p class="d">390 × 844. Turn on the guides to see the safe-area boundaries the dock and header pad against.</p>
+
+    <div class="grid">
+
+      <!-- ASK -->
+      <div class="cell">
+        <p class="cap">Ask · active thread</p>
+        <div class="phone-wrap"><div class="phone"><div class="screen">
+          <div class="island"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-r"><i class="b1"></i><i class="b2"></i><i class="b3"></i></span></div>
+          <div class="app">
+            <div class="hd"><div class="hd-t"><span class="hd-e">Workspace</span><span class="hd-n">Meridian Acquisition</span></div><div class="avatar">MB</div></div>
+            <div class="scroll">
+              <div class="q">Which clauses limit indemnity after closing?</div>
+              <p class="a">Three provisions cap post-closing indemnity. Survival ends 18 months after closing <span class="cite">SPA·8.2</span>, recovery is capped at 12% of consideration <span class="cite">SPA·8.4</span>, and fraud is carved out of both limits <span class="cite">SPA·8.7</span>.</p>
+              <div class="trace">
+                <div class="trace-h"><span class="dot"></span><span>Verification trace</span></div>
+                <div class="trace-r"><em>SPA·8.2</em><p>Meridian_SPA_v7.pdf · p.44</p><span class="pct">98%</span></div>
+                <div class="trace-r"><em>SPA·8.4</em><p>Meridian_SPA_v7.pdf · p.45</p><span class="pct">96%</span></div>
+                <div class="trace-r"><em>SPA·8.7</em><p>Meridian_SPA_v7.pdf · p.47</p><span class="pct">91%</span></div>
+              </div>
+            </div>
+            <div class="composer"><div class="cbox"><p>Ask about these documents</p><span class="send">↑</span></div></div>
+            <div class="dock">
+              <a href="#"><i></i><span>FILES</span></a>
+              <a href="#" class="on"><i></i><span>ASK</span></a>
+              <a href="#" class="cta"><i></i><span>NEW</span></a>
+              <a href="#"><i></i><span>TRACES</span></a>
+              <a href="#"><i></i><span>YOU</span></a>
+            </div>
+          </div>
+          <div class="guides"><div class="g-top"><span class="g-lbl">SAFE TOP 59</span></div><div class="g-bot"><span class="g-lbl">SAFE BOTTOM 34</span></div></div>
+          <div class="homebar"></div>
+        </div></div></div>
+      </div>
+
+      <!-- FILES -->
+      <div class="cell">
+        <p class="cap">Files · sources and status</p>
+        <div class="phone-wrap"><div class="phone"><div class="screen">
+          <div class="island"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-r"><i class="b1"></i><i class="b2"></i><i class="b3"></i></span></div>
+          <div class="app">
+            <div class="hd"><div class="hd-t"><span class="hd-e">Workspace</span><span class="hd-n">Meridian Acquisition</span></div><div class="avatar">MB</div></div>
+            <div class="scroll" style="gap:11px">
+              <div class="searchf">Search 4 sources</div>
+              <div class="chiprow"><span class="chip on">All</span><span class="chip">Contracts</span><span class="chip">Financials</span></div>
+              <div>
+                <div class="filerow"><span class="ftype">PDF</span><span class="fmeta"><b>Meridian_SPA_v7.pdf</b><span>212 PAGES · 4.2 MB</span></span><span class="badge">Ready</span></div>
+                <div class="filerow"><span class="ftype">XLS</span><span class="fmeta"><b>Q3_Financials_consolidated.xlsx</b><span>14 SHEETS · 880 KB</span></span><span class="badge">Ready</span></div>
+                <div class="filerow" style="align-items:flex-start"><span class="ftype">PDF</span><span class="fmeta"><b>IP_Assignment_2024.pdf</b><span>38 PAGES · 1.1 MB</span><span class="prog"><i></i></span></span><span class="badge wait">Indexing</span></div>
+                <div class="filerow"><span class="ftype">PDF</span><span class="fmeta"><b>Board_Minutes_Mar.pdf</b><span>COULD NOT READ PAGES 3–5</span></span><span class="badge bad">Failed</span></div>
+              </div>
+            </div>
+            <div class="dock">
+              <a href="#" class="on"><i></i><span>FILES</span></a>
+              <a href="#"><i></i><span>ASK</span></a>
+              <a href="#" class="cta"><i></i><span>NEW</span></a>
+              <a href="#"><i></i><span>TRACES</span></a>
+              <a href="#"><i></i><span>YOU</span></a>
+            </div>
+          </div>
+          <div class="guides"><div class="g-top"><span class="g-lbl">SAFE TOP 59</span></div><div class="g-bot"><span class="g-lbl">SAFE BOTTOM 34</span></div></div>
+          <div class="homebar"></div>
+        </div></div></div>
+      </div>
+
+      <!-- VIEWER -->
+      <div class="cell">
+        <p class="cap">Document viewer · dock swaps for actions</p>
+        <div class="phone-wrap"><div class="phone"><div class="screen">
+          <div class="island"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-r"><i class="b1"></i><i class="b2"></i><i class="b3"></i></span></div>
+          <div class="app">
+            <div class="hd" style="padding-top:2px"><span class="iconbtn">←</span><div class="hd-t ctr"><span class="hd-n" style="font-size:14px">Meridian_SPA_v7.pdf</span><span class="hd-e">Page 44 of 212</span></div><span class="iconbtn">⋯</span></div>
+            <div class="viewer">
+              <div class="page">
+                <h5>8. Indemnification</h5>
+                <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+                <p style="margin:9px 0"><b style="color:var(--ink)">8.2 Survival.</b> <span class="hl">All representations and warranties shall survive the Closing for a period of eighteen (18) months</span>, after which no claim may be brought under this Article.</p>
+                <div class="ln"></div><div class="ln s"></div>
+                <p style="margin:9px 0"><b style="color:var(--ink)">8.4 Cap.</b> Aggregate liability shall not exceed twelve percent (12%) of the Consideration.</p>
+                <div class="ln"></div><div class="ln"></div><div class="ln s"></div>
+              </div>
+            </div>
+            <div class="actionrow"><span class="btn s">Back to answer</span><span class="btn p">Ask about page</span></div>
+          </div>
+          <div class="guides"><div class="g-top"><span class="g-lbl">SAFE TOP 59</span></div><div class="g-bot"><span class="g-lbl">SAFE BOTTOM 34</span></div></div>
+          <div class="homebar"></div>
+        </div></div></div>
+      </div>
+
+      <!-- TRACES -->
+      <div class="cell">
+        <p class="cap">Traces · every grounded answer</p>
+        <div class="phone-wrap"><div class="phone"><div class="screen">
+          <div class="island"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-r"><i class="b1"></i><i class="b2"></i><i class="b3"></i></span></div>
+          <div class="app">
+            <div class="hd"><div class="hd-t"><span class="hd-e">Workspace</span><span class="hd-n">Meridian Acquisition</span></div><div class="avatar">MB</div></div>
+            <div class="scroll" style="gap:0">
+              <div class="trace-r" style="padding:13px 0"><em>02:14</em><p>Post-closing indemnity limits</p><span class="badge">3</span></div>
+              <div class="trace-r" style="padding:13px 0"><em>01:52</em><p>Change-of-control triggers</p><span class="badge">5</span></div>
+              <div class="trace-r" style="padding:13px 0"><em>YEST</em><p>Revenue recognition policy</p><span class="badge">2</span></div>
+              <div class="trace-r" style="padding:13px 0"><em>YEST</em><p>Escrow release conditions</p><span class="badge">4</span></div>
+              <div class="trace-r" style="padding:13px 0"><em>28 JUL</em><p>Employee retention obligations</p><span class="badge wait">1</span></div>
+              <div class="trace-r" style="padding:13px 0"><em>28 JUL</em><p>Assignment and novation rights</p><span class="badge">3</span></div>
+            </div>
+            <div class="dock">
+              <a href="#"><i></i><span>FILES</span></a>
+              <a href="#"><i></i><span>ASK</span></a>
+              <a href="#" class="cta"><i></i><span>NEW</span></a>
+              <a href="#" class="on"><i></i><span>TRACES</span></a>
+              <a href="#"><i></i><span>YOU</span></a>
+            </div>
+          </div>
+          <div class="guides"><div class="g-top"><span class="g-lbl">SAFE TOP 59</span></div><div class="g-bot"><span class="g-lbl">SAFE BOTTOM 34</span></div></div>
+          <div class="homebar"></div>
+        </div></div></div>
+      </div>
+
+      <!-- EMPTY -->
+      <div class="cell">
+        <p class="cap">Empty workspace · an invitation, not an apology</p>
+        <div class="phone-wrap"><div class="phone"><div class="screen">
+          <div class="island"></div>
+          <div class="statusbar"><span>9:41</span><span class="sb-r"><i class="b1"></i><i class="b2"></i><i class="b3"></i></span></div>
+          <div class="app">
+            <div class="hd"><div class="hd-t"><span class="hd-e">Workspace</span><span class="hd-n">New workspace</span></div><div class="avatar">MB</div></div>
+            <div class="empty">
+              <h4>Add documents to start</h4>
+              <p>Signal87 indexes what you upload, then answers with a citation for every claim.</p>
+            </div>
+            <div class="composer" style="border-top:0"><div class="cbox"><p>Ask about these documents</p><span class="send off">↑</span></div></div>
+            <div class="dock">
+              <a href="#"><i></i><span>FILES</span></a>
+              <a href="#" class="on"><i></i><span>ASK</span></a>
+              <a href="#" class="cta"><i></i><span>NEW</span></a>
+              <a href="#"><i></i><span>TRACES</span></a>
+              <a href="#"><i></i><span>YOU</span></a>
+            </div>
+          </div>
+          <div class="guides"><div class="g-top"><span class="g-lbl">SAFE TOP 59</span></div><div class="g-bot"><span class="g-lbl">SAFE BOTTOM 34</span></div></div>
+          <div class="homebar"></div>
+        </div></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DESKTOP -->
+  <section class="sec">
+    <h2>Desktop</h2>
+    <p class="d">The dock's five destinations become a left rail. Same information architecture, same components, different anchor.</p>
+
+    <div class="grid">
+      <div class="cell">
+        <p class="cap">≥ 1440px · rail + content + persistent detail</p>
+        <div class="desk-wrap"><div class="desk">
+          <div class="desk-bar"><i></i><i></i><i></i><u>signal87.ai/workspace/meridian</u></div>
+          <div class="desk-body">
+            <div class="rail">
+              <div class="rail-item new"><i></i>New thread</div>
+              <div class="rail-item"><i></i>Files</div>
+              <div class="rail-item on"><i></i>Ask</div>
+              <div class="rail-item"><i></i>Traces</div>
+              <div class="rail-item"><i></i>Account</div>
+            </div>
+            <div class="pane">
+              <div class="pane-h"><b>Meridian Acquisition</b><span class="badge">4 sources indexed</span></div>
+              <div class="pane-b"><div class="inner">
+                <div class="q">Which clauses limit indemnity after closing?</div>
+                <p class="a">Three provisions cap post-closing indemnity. Survival ends 18 months after closing <span class="cite">SPA·8.2</span>, recovery is capped at 12% of consideration <span class="cite">SPA·8.4</span>, and fraud is carved out of both limits <span class="cite">SPA·8.7</span>.</p>
+                <p class="a">Board minutes from March confirm the 12% figure was the negotiated position rather than a drafting default <span class="cite">BM·03</span>.</p>
+              </div></div>
+              <div class="composer"><div class="cbox" style="max-width:720px"><p>Ask about these documents</p><span class="send">↑</span></div></div>
+            </div>
+            <div class="pane detail">
+              <div class="pane-h"><b>Verification trace</b></div>
+              <div class="pane-b">
+                <div class="trace">
+                  <div class="trace-h"><span class="dot"></span><span>4 grounded citations</span></div>
+                  <div class="trace-r"><em>SPA·8.2</em><p>Meridian_SPA_v7.pdf · p.44</p><span class="pct">98%</span></div>
+                  <div class="trace-r"><em>SPA·8.4</em><p>Meridian_SPA_v7.pdf · p.45</p><span class="pct">96%</span></div>
+                  <div class="trace-r"><em>SPA·8.7</em><p>Meridian_SPA_v7.pdf · p.47</p><span class="pct">91%</span></div>
+                  <div class="trace-r"><em>BM·03</em><p>Board_Minutes_Mar.pdf · p.6</p><span class="pct">88%</span></div>
+                </div>
+                <div class="filerow"><span class="ftype">PDF</span><span class="fmeta"><b>Meridian_SPA_v7.pdf</b><span>212 PAGES · INDEXED</span></span><span class="badge">Ready</span></div>
+                <div class="filerow"><span class="ftype">XLS</span><span class="fmeta"><b>Q3_Financials.xlsx</b><span>14 SHEETS · INDEXED</span></span><span class="badge">Ready</span></div>
+                <div class="filerow"><span class="ftype">PDF</span><span class="fmeta"><b>IP_Assignment_2024.pdf</b><span>38 PAGES · 58%</span></span><span class="badge wait">Indexing</span></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="cell">
+        <p class="cap">1024–1439px · detail becomes a dismissible overlay</p>
+        <div class="desk-wrap md"><div class="desk md">
+          <div class="desk-bar"><i></i><i></i><i></i><u>signal87.ai/workspace/meridian</u></div>
+          <div class="desk-body">
+            <div class="rail">
+              <div class="rail-item new"><i></i>New thread</div>
+              <div class="rail-item"><i></i>Files</div>
+              <div class="rail-item on"><i></i>Ask</div>
+              <div class="rail-item"><i></i>Traces</div>
+              <div class="rail-item"><i></i>Account</div>
+            </div>
+            <div class="pane">
+              <div class="pane-h"><b>Meridian Acquisition</b><span class="badge">4 sources indexed</span></div>
+              <div class="pane-b"><div class="inner">
+                <div class="q">Which clauses limit indemnity after closing?</div>
+                <p class="a">Three provisions cap post-closing indemnity. Survival ends 18 months after closing <span class="cite">SPA·8.2</span>, recovery is capped at 12% <span class="cite">SPA·8.4</span>, and fraud is carved out <span class="cite">SPA·8.7</span>.</p>
+              </div></div>
+              <div class="composer"><div class="cbox"><p>Ask about these documents</p><span class="send">↑</span></div></div>
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="pane-h"><b>Verification trace</b><span class="iconbtn">✕</span></div>
+            <div class="pane-b">
+              <div class="trace">
+                <div class="trace-h"><span class="dot"></span><span>4 grounded citations</span></div>
+                <div class="trace-r"><em>SPA·8.2</em><p>Meridian_SPA_v7.pdf · p.44</p><span class="pct">98%</span></div>
+                <div class="trace-r"><em>SPA·8.4</em><p>Meridian_SPA_v7.pdf · p.45</p><span class="pct">96%</span></div>
+                <div class="trace-r"><em>SPA·8.7</em><p>Meridian_SPA_v7.pdf · p.47</p><span class="pct">91%</span></div>
+                <div class="trace-r"><em>BM·03</em><p>Board_Minutes_Mar.pdf · p.6</p><span class="pct">88%</span></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="note"><b>Build order.</b> Dock first, then the app shell at <b>100dvh</b> with one scroll region, then the composer with <b>visualViewport</b> handling, then the five screens against those primitives. If you build the screens first you will end up re-fixing the same safe-area bug five times.</p>
+
+  <footer><span>Signal87.ai</span><span>Option A · Dock</span></footer>
+</div>
+<script>
+(function(){
+  var b=document.getElementById('gb');
+  b.addEventListener('click',function(){
+    var on=b.getAttribute('aria-pressed')!=='true';
+    b.setAttribute('aria-pressed',String(on));
+    document.body.classList.toggle('sg',on);
+    b.textContent=on?'Safe-area guides · on':'Safe-area guides · off';
+  });
+})();
+</script>
+</body>
+</html>

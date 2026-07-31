@@ -1,0 +1,369 @@
+@import "tailwindcss";
+/* Archivo + IBM Plex Mono load via <link> in index.html. A CSS @import
+   does not survive Tailwind v4 processing and is silently dropped. */
+
+/* ============================================================
+   Signal87 — light theme + iOS Safari layout fixes
+   Replaces the previous src/index.css in full.
+
+   Sections:
+     1. Base
+     2. iOS Safari fixes
+     3. Mobile dock spacing
+     4. Light theme override layer (auto-generated from source)
+     5. Contrast repairs for text on colored buttons
+   ============================================================ */
+
+/* ---------- 1. Base ---------- */
+@layer base {
+  *, ::before, ::after { box-sizing: border-box; }
+  html, body {
+    height: 100dvh;
+    min-height: -webkit-fill-available;
+    max-width: 100vw;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+  body {
+    font-family: "Google Sans", "Google Sans Text", system-ui, -apple-system, sans-serif;
+    background-color: #EDEFF2;
+    color: #131C25;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ---------- 2. iOS Safari fixes ---------- */
+
+/* Inputs below 16px make iOS zoom on focus and never zoom back, which
+   shifts the whole layout sideways. This overrides text-xs / text-sm
+   on every field in the app without touching component markup. */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+/* Remove the 300ms tap delay and the grey flash. */
+button, a, [role="button"], summary {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Small icon buttons get a real 44px target without changing their look. */
+.s87-app button:not([class*="w-"]):not([class*="h-"]) { min-height: 44px; }
+.s87-app nav button, .s87-app [role="tab"] { min-height: 44px; }
+
+/* min-h-screen inside an already-scrolling pane creates a second
+   viewport-height box and breaks scroll on Safari. */
+.s87-app .min-h-screen { min-height: 0 !important; }
+
+/* Visible focus for keyboard users. */
+*:focus-visible { outline: 2px solid #1A73E8; outline-offset: 2px; }
+
+/* Horizontal scrollers must not clip their last item. */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.overflow-x-auto { -webkit-overflow-scrolling: touch; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* ---------- 3. Mobile dock ---------- */
+
+.s87-dock {
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+
+.pb-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px)); }
+.bottom-safe { bottom: env(safe-area-inset-bottom, 0px); }
+.chat-input-container {
+  bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- 4. Light theme override layer ---------- */
+/* Generated from every color utility actually used in src/.
+   To go back to dark, delete from here to the end of the file. */
+
+.bg-\[\#131314\]{background-color:#EDEFF2 !important}
+.text-\[\#e3e3e3\]{color:#131C25 !important}
+.border-\[\#28292a\]{border-color:#F1F4F6 !important}
+.text-\[\#c4c7c5\]{color:#3D4B58 !important}
+.hover\:text-\[\#e3e3e3\]:hover{color:#131C25 !important}
+.hover\:bg-\[\#1e1f20\]:hover{background-color:#FFFFFF !important}
+.border-\[\#37393b\]{border-color:#D3D9DE !important}
+.text-\[\#7dd3fc\]{color:#1A73E8 !important}
+.bg-\[\#1e1f20\]{background-color:#FFFFFF !important}
+.hover\:bg-\[\#28292a\]:hover{background-color:#F1F4F6 !important}
+.bg-\[\#004a77\]{background-color:#1A73E8 !important}
+.bg-\[\#e3e3e3\]{background-color:#131C25 !important}
+.text-\[\#131314\]{color:#EDEFF2 !important}
+.bg-\[\#131314\]\/90{background-color:#EDEFF2 !important}
+.border-\[\#7dd3fc\]{border-color:#1A73E8 !important}
+.hover\:border-\[\#c4c7c5\]:hover{border-color:#3D4B58 !important}
+.bg-\[\#28292a\]{background-color:#F1F4F6 !important}
+.border-\[\#28292a\]\/50{border-color:#F1F4F6 !important}
+.bg-\[\#171717\]{background-color:#FBFCFC !important}
+.border-\[\#262626\]{border-color:#E4E8EC !important}
+.placeholder-\[\#737373\]::placeholder{color:#8A95A0 !important}
+.border-\[\#262626\]\/40{border-color:#E4E8EC !important}
+.text-\[\#a3a3a3\]{color:#6E7C89 !important}
+.bg-\[\#212121\]{background-color:#F7F9FA !important}
+.hover\:bg-\[\#2b2b2b\]:hover{background-color:#EDEFF2 !important}
+.hover\:bg-\[\#e0e0e0\]:hover{background-color:#1F2A35 !important}
+.text-\[\#525252\]{color:#6E7C89 !important}
+.text-\[\#8e918f\]{color:#6E7C89 !important}
+.text-\[\#37393b\]{color:#D3D9DE !important}
+.bg-\[\#1a73e8\]{background-color:#1A73E8 !important}
+.hover\:bg-\[\#1557b0\]:hover{background-color:#174EA6 !important}
+.placeholder-\[\#c4c7c5\]::placeholder{color:#3D4B58 !important}
+.focus\:border-\[\#8e918f\]:focus{border-color:#6E7C89 !important}
+.hover\:bg-\[\#37393b\]:hover{background-color:#D3D9DE !important}
+.hover\:border-\[\#8e918f\]:hover{border-color:#6E7C89 !important}
+.group-hover\:bg-\[\#37393b\]\/60{background-color:#D3D9DE !important}
+.bg-\[\#d9383a\]{background-color:#BE4E36 !important}
+.text-\[\#d9383a\]{color:#BE4E36 !important}
+.group-hover\:border-\[\#7dd3fc\]\/60{border-color:#1A73E8 !important}
+.group-hover\:text-\[\#7dd3fc\]{color:#1A73E8 !important}
+.divide-\[\#28292a\] > :not([hidden]) ~ :not([hidden]){border-color:#F1F4F6 !important}
+.hover\:text-\[\#7dd3fc\]:hover{color:#1A73E8 !important}
+.bg-\[\#004a77\]\/30{background-color:#1A73E8 !important}
+.border-\[\#004a77\]{border-color:#1A73E8 !important}
+.bg-\[\#004a77\]\/40{background-color:#1A73E8 !important}
+.hover\:border-\[\#1a73e8\]:hover{border-color:#1A73E8 !important}
+.border-\[\#1e1f20\]{border-color:#FFFFFF !important}
+.divide-\[\#37393b\] > :not([hidden]) ~ :not([hidden]){border-color:#D3D9DE !important}
+.bg-\[\#18191a\]{background-color:#F7F9FA !important}
+.from-\[\#1a73e8\]{--tw-gradient-from:#1A73E8 !important}
+.bg-\[\#1a73e8\]\/20{background-color:#1A73E8 !important}
+.border-\[\#1a73e8\]\/30{border-color:#1A73E8 !important}
+.hover\:from-\[\#1557b0\]:hover{--tw-gradient-from:#174EA6 !important}
+.from-\[\#1e1f20\]{--tw-gradient-from:#FFFFFF !important}
+.to-\[\#131314\]{--tw-gradient-to:#EDEFF2 !important}
+.placeholder-\[\#8e918f\]::placeholder{color:#6E7C89 !important}
+.focus\:border-\[\#1a73e8\]:focus{border-color:#1A73E8 !important}
+.text-\[\#1a73e8\]{color:#1A73E8 !important}
+.border-\[\#1a73e8\]{border-color:#1A73E8 !important}
+.hover\:border-\[\#37393b\]:hover{border-color:#D3D9DE !important}
+.focus\:ring-\[\#1a73e8\]:focus{--tw-ring-color:#1A73E8 !important}
+.bg-\[\#004a77\]\/50{background-color:#1A73E8 !important}
+.ring-\[\#1a73e8\]\/20{--tw-ring-color:#1A73E8 !important}
+.bg-\[\#37393b\]{background-color:#D3D9DE !important}
+.hover\:border-\[\#7dd3fc\]:hover{border-color:#1A73E8 !important}
+.hover\:bg-\[\#37393b\]\/60:hover{background-color:#D3D9DE !important}
+.group-hover\:bg-\[\#1a73e8\]{background-color:#1A73E8 !important}
+.group-hover\:text-\[\#c4c7c5\]{color:#3D4B58 !important}
+.ring-\[\#1a73e8\]{--tw-ring-color:#1A73E8 !important}
+.border-\[\#1a73e8\]\/50{border-color:#1A73E8 !important}
+.from-\[\#004a77\]\/30{--tw-gradient-from:#1A73E8 !important}
+.hover\:bg-\[\#004a77\]\/40:hover{background-color:#1A73E8 !important}
+.focus\:border-\[\#7dd3fc\]:focus{border-color:#1A73E8 !important}
+.bg-\[\#1a1a1c\]{background-color:#F7F9FA !important}
+.border-\[\#37393b\]\/40{border-color:#D3D9DE !important}
+.bg-\[\#c4c7c5\]{background-color:#3D4B58 !important}
+.bg-\[\#070b12\]{background-color:#E4E8EC !important}
+.bg-\[\#070b12\]\/90{background-color:#E4E8EC !important}
+.text-\[\#38bdf8\]{color:#1A73E8 !important}
+.bg-\[\#7dd3fc\]{background-color:#1A73E8 !important}
+.hover\:bg-\[\#38bdf8\]:hover{background-color:#1A73E8 !important}
+.bg-\[\#0b101b\]{background-color:#EDEFF2 !important}
+.bg-\[\#38bdf8\]{background-color:#1A73E8 !important}
+
+/* ---------- 5. Contrast repairs ---------- */
+/* Where light text sat on a colored button, keep it light. These are
+   compound selectors (both classes on the same element) so they win. */
+.bg-\[\#1a73e8\].text-\[\#e3e3e3\],
+.bg-\[\#004a77\].text-\[\#e3e3e3\],
+.bg-\[\#1557b0\].text-\[\#e3e3e3\],
+.hover\:bg-\[\#1557b0\]:hover.text-\[\#e3e3e3\] { color: #FFFFFF !important; }
+
+.bg-\[\#1a73e8\].text-\[\#7dd3fc\],
+.bg-\[\#004a77\].text-\[\#7dd3fc\] { color: #D7E7FA !important; }
+
+.bg-\[\#e3e3e3\].text-\[\#131314\],
+.hover\:bg-white:hover.text-\[\#131314\] { color: #FFFFFF !important; }
+
+/* Blue active states need a readable border. */
+.bg-\[\#004a77\] { border-color: #1A73E8 !important; }
+
+/* ---------- 6. Named-color layer ---------- */
+/* Tailwind's slate/sky/emerald scales, used as a second dark palette.
+   Only the dark-intended shades are inverted; shades already used for
+   light styling (text-slate-600..950, bg-white, bg-slate-50/100,
+   border-slate-100..300) are left alone on purpose. */
+
+.bg-slate-900\/60{background-color:#FFFFFF !important}
+.text-slate-400{color:#6E7C89 !important}
+.bg-slate-950{background-color:#EDEFF2 !important}
+.bg-slate-900{background-color:#FFFFFF !important}
+.hover\:bg-slate-800:hover{background-color:#F1F4F6 !important}
+.hover\:text-rose-400:hover{color:#BE4E36 !important}
+.text-sky-400{color:#1A73E8 !important}
+.text-sky-300{color:#1557B0 !important}
+.bg-sky-950\/40{background-color:#EAF2FD !important}
+.hover\:bg-sky-900\/50:hover{background-color:#DCEAFB !important}
+.border-sky-800\/50{border-color:#BBD6F5 !important}
+.text-rose-400{color:#BE4E36 !important}
+.bg-slate-950\/80{background-color:#EDEFF2 !important}
+.border-slate-800{border-color:#D3D9DE !important}
+.text-slate-100{color:#131C25 !important}
+.text-amber-400{color:#8A6414 !important}
+.border-slate-800\/80{border-color:#D3D9DE !important}
+.text-amber-300{color:#8A6414 !important}
+.text-slate-300{color:#3D4B58 !important}
+.bg-slate-800{background-color:#F1F4F6 !important}
+.text-slate-200{color:#1F2A35 !important}
+.text-sky-200{color:#174EA6 !important}
+.hover\:bg-slate-700:hover{background-color:#E4E8EC !important}
+.text-emerald-400{color:#0F6E66 !important}
+.bg-emerald-950\/80{background-color:#E8F2F0 !important}
+.border-emerald-800{border-color:#B8DCD6 !important}
+.bg-amber-950\/80{background-color:#FBEECB !important}
+.border-amber-800{border-color:#EBD79B !important}
+.sm\:border-slate-800{border-color:#D3D9DE !important}
+.border-slate-700{border-color:#D3D9DE !important}
+.border-slate-900{border-color:#D3D9DE !important}
+.bg-rose-950\/60{background-color:#F7E3DE !important}
+.border-rose-800\/60{border-color:#EFC9BF !important}
+.text-rose-300{color:#BE4E36 !important}
+.bg-slate-950\/95{background-color:#EDEFF2 !important}
+.hover\:bg-slate-800\/80:hover{background-color:#F1F4F6 !important}
+.hover\:bg-slate-900:hover{background-color:#FFFFFF !important}
+.hover\:border-slate-800:hover{border-color:#D3D9DE !important}
+.bg-emerald-950\/60{background-color:#E8F2F0 !important}
+.bg-sky-950\/80{background-color:#EAF2FD !important}
+.border-sky-800\/80{border-color:#BBD6F5 !important}
+.bg-slate-900\/90{background-color:#FFFFFF !important}
+.bg-sky-950\/30{background-color:#EAF2FD !important}
+.border-sky-800\/40{border-color:#BBD6F5 !important}
+.border-slate-700\/80{border-color:#D3D9DE !important}
+.text-emerald-300{color:#0F6E66 !important}
+.bg-slate-950\/60{background-color:#EDEFF2 !important}
+.border-slate-800\/50{border-color:#D3D9DE !important}
+.hover\:text-slate-300:hover{color:#3D4B58 !important}
+.bg-slate-900\/80{background-color:#FFFFFF !important}
+.border-slate-800\/60{border-color:#D3D9DE !important}
+.bg-slate-800\/80{background-color:#F1F4F6 !important}
+.bg-slate-900\/40{background-color:#FFFFFF !important}
+.hover\:bg-slate-800\/40:hover{background-color:#F1F4F6 !important}
+
+/* ---------- 7. Typography ---------- */
+/* Archivo for UI, IBM Plex Mono for metadata. This is the single
+   biggest reason the app read as "Google product" rather than as
+   the mockup. */
+
+.s87-app,
+.s87-app button,
+.s87-app input,
+.s87-app textarea,
+.s87-app select {
+  font-family: "Archivo", "Google Sans", system-ui, -apple-system, sans-serif;
+}
+
+/* Headings: tighter, heavier, less airy than Google Sans defaults. */
+.s87-app h1, .s87-app h2, .s87-app h3, .s87-app h4 {
+  letter-spacing: -0.028em;
+  font-weight: 800;
+}
+.s87-app .text-2xl, .s87-app .text-3xl,
+.s87-app .text-4xl, .s87-app .text-5xl {
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  line-height: 1.05;
+}
+.s87-app .text-xl  { letter-spacing: -0.022em; font-weight: 700; }
+.s87-app .text-lg  { letter-spacing: -0.018em; font-weight: 700; }
+.s87-app .text-base{ letter-spacing: -0.011em; }
+.s87-app .text-sm  { letter-spacing: -0.006em; }
+
+/* Small uppercase labels become monospace — timestamps, counts,
+   section headers, badges. */
+.s87-app .uppercase.text-\[9px\],
+.s87-app .uppercase.text-\[10px\],
+.s87-app .uppercase.text-\[11px\],
+.s87-app .uppercase.text-xs,
+.s87-app th.uppercase,
+.s87-app .tracking-wider.uppercase,
+.s87-app .tracking-widest.uppercase {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+}
+
+/* ---------- 8. Surfaces ---------- */
+/* Flatter, squarer, hairline-ruled. The mockup's discipline comes
+   from restraint here: one shadow, thin rules, less rounding. */
+
+.s87-app .rounded-2xl { border-radius: 14px; }
+.s87-app .rounded-3xl { border-radius: 18px; }
+.s87-app .rounded-xl  { border-radius: 10px; }
+.s87-app .rounded-lg  { border-radius: 9px; }
+
+/* Heavy drop shadows read as generic. One quiet shadow instead. */
+.s87-app .shadow-2xl,
+.s87-app .shadow-xl,
+.s87-app .shadow-lg {
+  box-shadow: 0 10px 26px -18px rgba(19, 28, 37, 0.45) !important;
+}
+.s87-app .shadow-sm, .s87-app .shadow { box-shadow: none !important; }
+
+/* Borders are hairlines, not 1px slabs. */
+.s87-app [class*="border"] { border-color: #D3D9DE; }
+
+/* The one accent: amber for the primary action, matching the dock. */
+.s87-app .bg-\[\#1a73e8\]:not([class*="text-"]) { background-color: #1A73E8; }
+
+/* Suggestion cards and list rows: quieter, ruled rather than boxed. */
+.s87-app .bg-white.border,
+.s87-app .bg-\[\#1e1f20\].border {
+  border-color: #D3D9DE;
+  box-shadow: none;
+}
+
+/* Focus ring matches the accent. */
+.s87-app *:focus-visible { outline: 2px solid #F0B429; outline-offset: 2px; }
+
+
+/* ---------- 9. White-text repair ---------- */
+/* text-white is used 122 times: correctly on colored buttons, and on
+   surfaces that used to be dark. Default it to ink, then restore white
+   wherever the same element also has a colored background. */
+
+.s87-app .text-white,
+.s87-app .hover\:text-white:hover { color: #131C25 !important; }
+
+.s87-app [class*="bg-blue-"].text-white,
+.s87-app [class*="bg-indigo-"].text-white,
+.s87-app [class*="bg-violet-"].text-white,
+.s87-app [class*="bg-purple-"].text-white,
+.s87-app [class*="bg-red-"].text-white,
+.s87-app [class*="bg-rose-"].text-white,
+.s87-app [class*="bg-emerald-"].text-white,
+.s87-app [class*="bg-green-"].text-white,
+.s87-app [class*="bg-sky-5"].text-white,
+.s87-app [class*="bg-sky-6"].text-white,
+.s87-app [class*="bg-amber-5"].text-white,
+.s87-app [class*="bg-amber-6"].text-white,
+.s87-app [class*="bg-gradient"].text-white,
+.s87-app .bg-\[\#1a73e8\].text-white,
+.s87-app .bg-\[\#1557b0\].text-white,
+.s87-app .bg-\[\#004a77\].text-white,
+.s87-app .bg-\[\#d9383a\].text-white,
+.s87-app [class*="bg-blue-"] .text-white,
+.s87-app [class*="bg-indigo-"] .text-white,
+.s87-app [class*="bg-gradient"] .text-white { color: #FFFFFF !important; }
+
+/* Pale accent text that sat on dark surfaces. */
+.s87-app .text-blue-300, .s87-app .text-blue-200,
+.s87-app .text-indigo-300, .s87-app .text-violet-300,
+.s87-app .text-purple-300, .s87-app .text-cyan-300,
+.s87-app .text-teal-300 { color: #1557B0 !important; }
+
+.s87-app [class*="bg-blue-"] [class*="text-blue-3"],
+.s87-app [class*="bg-indigo-"] [class*="text-indigo-3"] { color: #D7E7FA !important; }
