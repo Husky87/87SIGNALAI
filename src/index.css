@@ -367,3 +367,19 @@ button, a, [role="button"], summary {
 
 .s87-app [class*="bg-blue-"] [class*="text-blue-3"],
 .s87-app [class*="bg-indigo-"] [class*="text-indigo-3"] { color: #D7E7FA !important; }
+
+
+/* ---------- 10. Font, unconditionally ---------- */
+/* Forces Archivo everywhere, overriding any component-level font. */
+html, body, #root, #root *,
+button, input, textarea, select,
+h1, h2, h3, h4, h5, h6, p, span, div, a, li, label, td, th {
+  font-family: "Archivo", system-ui, -apple-system, sans-serif !important;
+}
+
+code, pre, kbd, samp, .font-mono,
+.uppercase.text-\[9px\], .uppercase.text-\[10px\],
+.uppercase.text-\[11px\], .uppercase.text-xs,
+.tracking-wider.uppercase, .tracking-widest.uppercase, th.uppercase {
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace !important;
+}
