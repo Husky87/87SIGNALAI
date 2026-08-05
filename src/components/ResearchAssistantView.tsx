@@ -876,7 +876,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                           </div>
                         ) : (
                           <div className="flex gap-3 sm:gap-4 items-start my-4">
-                            <div className="w-8 h-8 rounded-full bg-[#1e1f20] text-[#e3e3e3] border border-[#37393b] flex items-center justify-center flex-shrink-0 mt-1">
+                            <div className="w-8 h-8 rounded-full bg-white text-[#131C25] border border-[#D3D9DE] flex items-center justify-center flex-shrink-0 mt-1">
                               <Signal87Logo size={16} />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -907,8 +907,8 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                   })}
 
                   {loading && (
-                    <div className="flex items-center gap-3 p-4 bg-[#1e1f20] border border-[#37393b] rounded-2xl text-xs text-[#c4c7c5] animate-pulse">
-                      <div className="w-6 h-6 bg-[#28292a] rounded-lg flex items-center justify-center text-[#e3e3e3]">
+                    <div className="flex items-center gap-3 p-4 bg-white border border-[#D3D9DE] rounded-[12px] text-[12.5px] text-[#3D4B58] animate-pulse">
+                      <div className="w-6 h-6 bg-[#F1F4F6] rounded-lg flex items-center justify-center text-[#131C25]">
                         <Signal87Logo size={14} className="animate-spin" />
                       </div>
                       <span className="font-medium">Synthesizing document memory and generating deliverable...</span>
@@ -930,26 +930,27 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
             <div className="max-w-[768px] w-full mx-auto">
 
               {attachedFiles.length > 0 && (
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 px-1">
+                <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-2 -mx-3 px-3 sm:-mx-4 sm:px-4">
                   {attachedFiles.map((f) => (
                     <div
                       key={f.id}
-                      className="px-3 py-1 bg-[#1e1f20] text-[#e3e3e3] border border-[#37393b] rounded-full text-xs font-semibold flex items-center gap-2 flex-shrink-0"
+                      className="pl-3 pr-2 min-h-[36px] bg-white text-[#131C25] border border-[#D3D9DE] rounded-full text-[12px] font-semibold flex items-center gap-2 flex-shrink-0 max-w-[210px]"
                     >
                       {f.dataUrl ? (
                         <img src={f.dataUrl} alt={f.name} className="w-5 h-5 object-cover rounded-full" />
                       ) : (
-                        <FileText size={13} className="text-[#c4c7c5]" />
+                        <FileText size={13} className="text-[#6E7C89] flex-shrink-0" />
                       )}
-                      <span className="truncate max-w-[140px]">{f.name}</span>
+                      <span className="truncate min-w-0 flex-1">{f.name}</span>
                       <button
                         onClick={() => {
                           setAttachedFiles((prev) => prev.filter((item) => item.id !== f.id));
                           setIngestedFiles((prev) => prev.filter((item) => item.fileName !== f.name));
                         }}
-                        className="text-[#c4c7c5] hover:text-[#e3e3e3] transition-colors cursor-pointer"
+                        aria-label={`Remove ${f.name}`}
+                        className="w-8 h-8 -mr-1 flex items-center justify-center text-[#6E7C89] hover:text-[#131C25] transition-colors cursor-pointer flex-shrink-0"
                       >
-                        <X size={12} />
+                        <X size={14} />
                       </button>
                     </div>
                   ))}
@@ -971,23 +972,23 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                   className="w-full bg-transparent border-0 text-[16px] leading-[1.45] text-[#131C25] placeholder-[#8A95A0] focus:outline-none resize-none min-h-[40px] max-h-32 px-1 font-sans"
                   rows={2}
                 />
-                <div className="flex items-center justify-between pt-1 border-t border-[#262626]/40">
+                <div className="flex items-center justify-between pt-1 border-t border-[#E4E8EC]">
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isParsingFile}
-                      className="flex items-center gap-1.5 text-xs text-[#a3a3a3] bg-[#212121] hover:bg-[#2b2b2b] hover:text-[#e3e3e3] px-3 py-1.5 rounded-lg border border-[#333] transition-colors cursor-pointer disabled:opacity-50"
+                      className="flex items-center gap-1.5 min-h-[36px] text-[12px] font-semibold text-[#3D4B58] bg-white hover:bg-[#F7F9FA] hover:text-[#131C25] px-3 rounded-[9px] border border-[#D3D9DE] transition-colors cursor-pointer disabled:opacity-50"
                     >
-                      {isParsingFile ? <Loader2 size={14} className="animate-spin text-sky-400" /> : <span>📎</span>}
-                      <span>Upload Document</span>
+                      {isParsingFile ? <Loader2 size={14} className="animate-spin text-[#F0B429]" /> : <Paperclip size={14} />}
+                      <span className="whitespace-nowrap">Upload</span>
                     </button>
 
                     {onOpenDrivePicker && (
                       <button
                         type="button"
                         onClick={onOpenDrivePicker}
-                        className="flex items-center gap-1.5 text-xs text-sky-300 bg-sky-950/40 hover:bg-sky-900/50 px-3 py-1.5 rounded-lg border border-sky-800/50 transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 min-h-[36px] text-[12px] font-semibold text-[#1A73E8] bg-white hover:bg-[#F7F9FA] px-3 rounded-[9px] border border-[#D3D9DE] transition-colors cursor-pointer whitespace-nowrap"
                         title="Port files from Google Drive"
                       >
                         <svg className="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 87.3 78">
@@ -1006,30 +1007,32 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                     <button
                       type="button"
                       onClick={toggleSpeechRecognition}
-                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                        isListening ? 'bg-rose-500/20 text-rose-400 animate-pulse' : 'text-[#a3a3a3] hover:text-[#e3e3e3] hover:bg-[#2b2b2b]'
+                      aria-label={isListening ? 'Stop listening' : 'Voice input'}
+                      className={`w-9 h-9 flex items-center justify-center rounded-full transition-colors cursor-pointer ${
+                        isListening ? 'bg-[#F7E3DE] text-[#BE4E36] animate-pulse' : 'text-[#6E7C89] hover:text-[#131C25] hover:bg-[#F1F4F6]'
                       }`}
-                      title={isListening ? 'Listening... click to stop' : 'Voice Input'}
+                      title={isListening ? 'Listening... tap to stop' : 'Voice input'}
                     >
-                      🎤
+                      {isListening ? <MicOff size={17} /> : <Mic size={17} />}
                     </button>
                     <button
                       type="button"
                       onClick={() => handleSendQuery()}
                       disabled={!inputQuery.trim() || loading}
-                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                      aria-label="Send"
+                      className={`w-[38px] h-[38px] flex items-center justify-center rounded-full transition-colors cursor-pointer ${
                         inputQuery.trim() && !loading
-                          ? 'bg-white hover:bg-[#e0e0e0] text-black font-bold'
-                          : 'bg-[#212121] text-[#525252] cursor-not-allowed'
+                          ? 'bg-[#F0B429] text-[#131C25] hover:brightness-95'
+                          : 'bg-[#E4E8EC] text-[#8A95A0] cursor-not-allowed'
                       }`}
                       title="Send message"
                     >
-                      ⬆
+                      <ArrowUp size={18} strokeWidth={2.6} />
                     </button>
                   </div>
                 </div>
               </div>
-              <p className="text-[11px] text-center text-[#8e918f] mt-2 font-medium">
+              <p className="text-[11px] text-center text-[#6E7C89] mt-2">
                 Signal87 AI may produce inaccurate information. Verify key citations.
               </p>
             </div>
