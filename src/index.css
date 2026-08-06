@@ -184,7 +184,9 @@ button, a, [role="button"], summary {
 .hover\:bg-\[\#1557b0\]:hover.text-\[\#e3e3e3\] { color: #FFFFFF !important; }
 
 .bg-\[\#1a73e8\].text-\[\#7dd3fc\],
-.bg-\[\#004a77\].text-\[\#7dd3fc\] { color: #D7E7FA !important; }
+.bg-\[\#004a77\].text-\[\#7dd3fc\],
+[class*="bg-[#004a77]/"].text-\[\#7dd3fc\],
+[class*="bg-[#1a73e8]/"].text-\[\#7dd3fc\] { color: #D7E7FA !important; }
 
 .bg-\[\#e3e3e3\].text-\[\#131314\],
 .hover\:bg-white:hover.text-\[\#131314\] { color: #FFFFFF !important; }
