@@ -243,6 +243,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
   const [mode, setMode] = useState<'quick' | 'deep'>('quick');
   const [inputQuery, setInputQuery] = useState('');
   const [showModelMenu, setShowModelMenu] = useState(false);
+  const [showAttachMenu, setShowAttachMenu] = useState(false);
   const [selectedDocIds, setSelectedDocIds] = useState<string[]>(documents.map((d) => d.id));
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
@@ -838,7 +839,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                     <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#6E7C89]">
                       Workspace &middot; {documents.length} {documents.length === 1 ? 'source' : 'sources'} indexed
                     </span>
-                    <h1 className="text-[28px] sm:text-[40px] font-extrabold tracking-[-0.035em] leading-[1.02] text-[#131C25] m-0">
+                    <h1 className="text-[30px] sm:text-[42px] font-semibold tracking-[-0.015em] leading-[1.15] text-[#131C25] m-0">
                       What do you need,<br />{currentUser?.displayName?.split(' ')[0] || 'Researcher'}?
                     </h1>
                     <p className="text-[14px] sm:text-[15px] leading-[1.5] text-[#3D4B58] m-0 max-w-[46ch]">
@@ -963,8 +964,58 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                 </div>
               )}
 
-              {/* Floating Input Box matching the main site style */}
-              <div className="relative bg-[#FBFCFC] border border-[#D3D9DE] rounded-[20px] p-3 flex flex-col gap-2 mt-auto transition-all">
+              {/* Gemini-style single-row pill input */}
+              <div className="relative bg-[#FBFCFC] border border-[#D3D9DE] rounded-full pl-2 pr-2.5 py-2 flex items-end gap-1.5 mt-auto transition-all shadow-xs">
+                <div className="relative flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setShowAttachMenu((v) => !v)}
+                    className="w-9 h-9 flex items-center justify-center rounded-full text-[#6E7C89] hover:bg-[#F1F4F6] hover:text-[#131C25] transition-colors cursor-pointer"
+                    title="Attach"
+                  >
+                    <Plus size={19} />
+                  </button>
+
+                  {showAttachMenu && (
+                    <div className="absolute bottom-full left-0 mb-2 w-56 bg-white border border-[#D3D9DE] rounded-2xl shadow-xl py-1.5 z-50 animate-in fade-in duration-150">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowAttachMenu(false);
+                          fileInputRef.current?.click();
+                        }}
+                        disabled={isParsingFile}
+                        className="w-full text-left px-4 py-2.5 hover:bg-[#F1F4F6] transition-colors cursor-pointer flex items-center gap-2.5 text-[13px] text-[#131C25] font-medium disabled:opacity-50"
+                      >
+                        {isParsingFile ? <Loader2 size={15} className="animate-spin text-[#6E7C89]" /> : <span>📎</span>}
+                        <span>Upload Document</span>
+                      </button>
+
+                      {onOpenDrivePicker && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowAttachMenu(false);
+                            onOpenDrivePicker();
+                          }}
+                          className="w-full text-left px-4 py-2.5 hover:bg-[#F1F4F6] transition-colors cursor-pointer flex items-center gap-2.5 text-[13px] text-[#131C25] font-medium"
+                          title="Port files from Google Drive"
+                        >
+                          <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 87.3 78">
+                            <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.9 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
+                            <path d="m43.65 25-13.75-23.8c-1.4.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
+                            <path d="m73.55 76.8c1.4-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/>
+                            <path d="m43.65 25 13.75 23.8h27.5c0-1.55-.4-3.1-1.2-4.5l-25.4-44c-.8-1.4-1.9-2.5-3.3-3.3z" fill="#00832d"/>
+                            <path d="m57.4 48.8-13.75 23.8c1.4.8 2.95 1.2 4.5 1.2h54.8c1.55 0 3.1-.4 4.5-1.2l-13.75-23.8z" fill="#2684fc"/>
+                            <path d="m13.75 25 13.75 23.8 13.75-23.8-13.75-23.8z" fill="#ffba00"/>
+                          </svg>
+                          <span>Google Drive</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <textarea
                   value={inputQuery}
                   onChange={(e) => setInputQuery(e.target.value)}
@@ -975,66 +1026,34 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                     }
                   }}
                   placeholder="Ask a question, synthesize legal terms, or draft a report..."
-                  className="w-full bg-transparent border-0 text-[16px] leading-[1.45] text-[#131C25] placeholder-[#8A95A0] focus:outline-none resize-none min-h-[40px] max-h-32 px-1 font-sans"
-                  rows={2}
+                  className="flex-1 min-w-0 bg-transparent border-0 text-[15px] leading-[1.4] text-[#131C25] placeholder-[#8A95A0] focus:outline-none resize-none max-h-32 py-1.5 font-sans"
+                  rows={1}
                 />
-                <div className="flex items-center justify-between pt-1 border-t border-[#262626]/40">
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={isParsingFile}
-                      className="flex items-center gap-1.5 text-xs text-[#a3a3a3] bg-[#212121] hover:bg-[#2b2b2b] hover:text-[#e3e3e3] px-3 py-1.5 rounded-lg border border-[#37393b] transition-colors cursor-pointer disabled:opacity-50"
-                    >
-                      {isParsingFile ? <Loader2 size={14} className="animate-spin text-sky-400" /> : <span>📎</span>}
-                      <span>Upload Document</span>
-                    </button>
 
-                    {onOpenDrivePicker && (
-                      <button
-                        type="button"
-                        onClick={onOpenDrivePicker}
-                        className="flex items-center gap-1.5 text-xs text-sky-300 bg-sky-950/40 hover:bg-sky-900/50 px-3 py-1.5 rounded-lg border border-sky-800/50 transition-colors cursor-pointer"
-                        title="Port files from Google Drive"
-                      >
-                        <svg className="w-3.5 h-3.5 fill-current flex-shrink-0" viewBox="0 0 87.3 78">
-                          <path d="m6.6 66.85 3.85 6.65c.8 1.4 1.9 2.5 3.3 3.3l13.75-23.8h-27.5c0 1.55.4 3.1 1.2 4.5z" fill="#0066da"/>
-                          <path d="m43.65 25-13.75-23.8c-1.4.8-2.5 1.9-3.3 3.3l-25.4 44a9.06 9.06 0 0 0 -1.2 4.5h27.5z" fill="#00ac47"/>
-                          <path d="m73.55 76.8c1.4-.8 2.5-1.9 3.3-3.3l1.6-2.75 7.65-13.25c.8-1.4 1.2-2.95 1.2-4.5h-27.5l5.85 10.15z" fill="#ea4335"/>
-                          <path d="m43.65 25 13.75 23.8h27.5c0-1.55-.4-3.1-1.2-4.5l-25.4-44c-.8-1.4-1.9-2.5-3.3-3.3z" fill="#00832d"/>
-                          <path d="m57.4 48.8-13.75 23.8c1.4.8 2.95 1.2 4.5 1.2h54.8c1.55 0 3.1-.4 4.5-1.2l-13.75-23.8z" fill="#2684fc"/>
-                          <path d="m13.75 25 13.75 23.8 13.75-23.8-13.75-23.8z" fill="#ffba00"/>
-                        </svg>
-                        <span>Google Drive</span>
-                      </button>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={toggleSpeechRecognition}
-                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                        isListening ? 'bg-rose-500/20 text-rose-400 animate-pulse' : 'text-[#a3a3a3] hover:text-[#e3e3e3] hover:bg-[#2b2b2b]'
-                      }`}
-                      title={isListening ? 'Listening... click to stop' : 'Voice Input'}
-                    >
-                      🎤
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleSendQuery()}
-                      disabled={!inputQuery.trim() || loading}
-                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                        inputQuery.trim() && !loading
-                          ? 'bg-white hover:bg-[#e0e0e0] text-black font-bold'
-                          : 'bg-[#212121] text-[#525252] cursor-not-allowed'
-                      }`}
-                      title="Send message"
-                    >
-                      ⬆
-                    </button>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  onClick={toggleSpeechRecognition}
+                  className={`w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-full transition-colors cursor-pointer ${
+                    isListening ? 'bg-rose-100 text-rose-600 animate-pulse' : 'text-[#6E7C89] hover:bg-[#F1F4F6] hover:text-[#131C25]'
+                  }`}
+                  title={isListening ? 'Listening... click to stop' : 'Voice Input'}
+                >
+                  {isListening ? <MicOff size={17} /> : <Mic size={17} />}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleSendQuery()}
+                  disabled={!inputQuery.trim() || loading}
+                  className={`w-9 h-9 flex-shrink-0 flex items-center justify-center rounded-full transition-colors cursor-pointer ${
+                    inputQuery.trim() && !loading
+                      ? 'bg-[#131C25] hover:bg-[#1F2A35] text-white'
+                      : 'bg-[#EDEFF2] text-[#B7C0C8] cursor-not-allowed'
+                  }`}
+                  title="Send message"
+                >
+                  <ArrowUp size={18} strokeWidth={2.4} />
+                </button>
               </div>
               <p className="text-[11px] text-center text-[#8e918f] mt-2 font-medium">
                 Signal87 AI may produce inaccurate information. Verify key citations.

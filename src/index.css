@@ -355,6 +355,8 @@ button, a, [role="button"], summary {
 .s87-app .bg-\[\#1557b0\].text-white,
 .s87-app .bg-\[\#004a77\].text-white,
 .s87-app .bg-\[\#d9383a\].text-white,
+.s87-app .bg-\[\#131C25\].text-white,
+.s87-app .hover\:bg-\[\#1F2A35\]:hover.text-white,
 .s87-app [class*="bg-blue-"] .text-white,
 .s87-app [class*="bg-indigo-"] .text-white,
 .s87-app [class*="bg-gradient"] .text-white { color: #FFFFFF !important; }
