@@ -15,7 +15,6 @@ import {
   ChevronUp,
   ZoomIn,
   ZoomOut,
-  Printer,
   Scale
 } from 'lucide-react';
 import { DocumentItem } from '../types';
@@ -95,10 +94,6 @@ export const DocumentDetailModal: React.FC<DocumentDetailModalProps> = ({
     a.download = `${doc.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_document.txt`;
     a.click();
     URL.revokeObjectURL(url);
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   const renderHighlightedText = (text: string, query: string) => {
@@ -183,145 +178,136 @@ export const DocumentDetailModal: React.FC<DocumentDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Viewer Toolbar Row */}
-        <div className="px-3 py-2 sm:px-5 sm:py-2.5 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
-          {/* Mode Tabs */}
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl border border-slate-800">
-            <button
-              onClick={() => setActiveTab('pdf')}
-              className={`px-2.5 sm:px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer text-[11px] sm:text-xs ${
-                activeTab === 'pdf'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <FileText size={14} />
-              <span>Document</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('analysis')}
-              className={`px-2.5 sm:px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer text-[11px] sm:text-xs ${
-                activeTab === 'analysis'
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
-              }`}
-            >
-              <Sparkles size={14} />
-              <span>AI Analysis</span>
-            </button>
-          </div>
+        {/* Viewer Toolbar */}
+        <div className="bg-slate-900 border-b border-slate-800">
+          {/* Row 1: Mode Tabs + Search */}
+          <div className="px-3 py-2 sm:px-5 sm:pt-2.5 sm:pb-1.5 flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-2xl flex-shrink-0">
+              <button
+                onClick={() => setActiveTab('pdf')}
+                className={`px-2.5 sm:px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer text-[11px] sm:text-xs ${
+                  activeTab === 'pdf'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <FileText size={14} />
+                <span>Document</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('analysis')}
+                className={`px-2.5 sm:px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer text-[11px] sm:text-xs ${
+                  activeTab === 'analysis'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}
+              >
+                <Sparkles size={14} />
+                <span>AI Analysis</span>
+              </button>
+            </div>
 
-          {/* Search Bar with Find & Highlight Controls */}
-          <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-1 rounded-2xl border border-slate-800 flex-1 max-w-full sm:max-w-md min-w-[200px]">
-            <Search className="text-slate-400 flex-shrink-0" size={14} />
-            <input
-              type="text"
-              value={docSearchQuery}
-              onChange={(e) => setDocSearchQuery(e.target.value)}
-              placeholder="Find in document..."
-              className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none min-w-0"
-            />
-            {docSearchQuery && (
-              <div className="flex items-center gap-1 flex-shrink-0">
-                <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded">
-                  {matchesCount > 0 ? `${activeMatchIndex + 1}/${matchesCount}` : '0 found'}
-                </span>
-                
-                <button
-                  onClick={handlePrevMatch}
-                  disabled={matchesCount === 0}
-                  className="p-1 text-slate-300 hover:text-white hover:bg-slate-800 rounded disabled:opacity-30 cursor-pointer"
-                  title="Previous match"
-                >
-                  <ChevronUp size={14} />
-                </button>
-                <button
-                  onClick={handleNextMatch}
-                  disabled={matchesCount === 0}
-                  className="p-1 text-slate-300 hover:text-white hover:bg-slate-800 rounded disabled:opacity-30 cursor-pointer"
-                  title="Next match"
-                >
-                  <ChevronDown size={14} />
-                </button>
-                <button
-                  onClick={() => setDocSearchQuery('')}
-                  className="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded cursor-pointer"
-                  title="Clear search"
-                >
-                  <X size={13} />
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Controls Right Section */}
-          <div className="flex items-center gap-2 flex-wrap min-w-0">
-            {/* PDF Page Nav & Zoom (when in PDF mode) */}
-            {activeTab === 'pdf' && (
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 bg-slate-950 px-2 py-1 rounded-xl border border-slate-800">
-                  <button
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    disabled={currentPage === 1}
-                    className="p-1 hover:bg-slate-800 disabled:opacity-40 rounded text-slate-300 cursor-pointer"
-                    title="Previous Page"
-                  >
-                    <ChevronLeft size={14} />
-                  </button>
-                  <span className="text-[11px] font-mono text-slate-200">
-                    <strong className="text-white">{currentPage}</strong>/{totalPages}
+            {/* Search Bar with Find & Highlight Controls */}
+            <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-2xl flex-1 min-w-0">
+              <Search className="text-slate-400 flex-shrink-0" size={14} />
+              <input
+                type="text"
+                value={docSearchQuery}
+                onChange={(e) => setDocSearchQuery(e.target.value)}
+                placeholder="Find in document..."
+                className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none min-w-0"
+              />
+              {docSearchQuery && (
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <span className="text-[10px] font-mono font-bold text-amber-300 bg-amber-500/20 px-1.5 py-0.5 rounded-full">
+                    {matchesCount > 0 ? `${activeMatchIndex + 1}/${matchesCount}` : '0 found'}
                   </span>
                   <button
-                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                    disabled={currentPage === totalPages}
-                    className="p-1 hover:bg-slate-800 disabled:opacity-40 rounded text-slate-300 cursor-pointer"
-                    title="Next Page"
+                    onClick={handlePrevMatch}
+                    disabled={matchesCount === 0}
+                    className="p-1 text-slate-300 hover:text-white hover:bg-slate-800 rounded-full disabled:opacity-30 cursor-pointer"
+                    title="Previous match"
                   >
-                    <ChevronRight size={14} />
+                    <ChevronUp size={14} />
+                  </button>
+                  <button
+                    onClick={handleNextMatch}
+                    disabled={matchesCount === 0}
+                    className="p-1 text-slate-300 hover:text-white hover:bg-slate-800 rounded-full disabled:opacity-30 cursor-pointer"
+                    title="Next match"
+                  >
+                    <ChevronDown size={14} />
+                  </button>
+                  <button
+                    onClick={() => setDocSearchQuery('')}
+                    className="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-full cursor-pointer"
+                    title="Clear search"
+                  >
+                    <X size={13} />
                   </button>
                 </div>
+              )}
+            </div>
+          </div>
 
-                <div className="hidden sm:flex items-center gap-1 bg-slate-950 px-2 py-1 rounded-xl border border-slate-800">
-                  <button
-                    onClick={() => setZoomLevel((z) => Math.max(75, z - 15))}
-                    className="p-1 hover:bg-slate-800 rounded text-slate-300 cursor-pointer"
-                    title="Zoom Out"
-                  >
-                    <ZoomOut size={13} />
-                  </button>
-                  <span className="text-[11px] font-mono text-slate-300 px-0.5">{zoomLevel}%</span>
-                  <button
-                    onClick={() => setZoomLevel((z) => Math.min(150, z + 15))}
-                    className="p-1 hover:bg-slate-800 rounded text-slate-300 cursor-pointer"
-                    title="Zoom In"
-                  >
-                    <ZoomIn size={13} />
-                  </button>
-                </div>
+          {/* Row 2: Page Nav + Zoom (left) / Copy + Download (right) */}
+          <div className="px-3 pb-2 sm:px-5 sm:pb-2.5 flex items-center justify-between gap-2 text-xs">
+            {activeTab === 'pdf' ? (
+              <div className="flex items-center gap-1.5 bg-slate-950 px-2 py-1 rounded-xl">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="p-1 hover:bg-slate-800 disabled:opacity-40 rounded-full text-slate-300 cursor-pointer"
+                  title="Previous Page"
+                >
+                  <ChevronLeft size={14} />
+                </button>
+                <span className="text-[11px] font-mono text-slate-200">
+                  <strong className="text-white">{currentPage}</strong>/{totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-1 hover:bg-slate-800 disabled:opacity-40 rounded-full text-slate-300 cursor-pointer"
+                  title="Next Page"
+                >
+                  <ChevronRight size={14} />
+                </button>
+
+                <span className="w-px h-4 bg-slate-800 mx-1 hidden sm:block" />
+
+                <button
+                  onClick={() => setZoomLevel((z) => Math.max(75, z - 15))}
+                  className="p-1 hover:bg-slate-800 rounded-full text-slate-300 cursor-pointer hidden sm:flex"
+                  title="Zoom Out"
+                >
+                  <ZoomOut size={13} />
+                </button>
+                <span className="text-[11px] font-mono text-slate-300 px-0.5 hidden sm:inline">{zoomLevel}%</span>
+                <button
+                  onClick={() => setZoomLevel((z) => Math.min(150, z + 15))}
+                  className="p-1 hover:bg-slate-800 rounded-full text-slate-300 cursor-pointer hidden sm:flex"
+                  title="Zoom In"
+                >
+                  <ZoomIn size={13} />
+                </button>
               </div>
+            ) : (
+              <div />
             )}
 
-            {/* Quick Action Buttons */}
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleCopyText}
-                className="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1 text-[11px] font-semibold transition-colors cursor-pointer"
+                className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1 text-[11px] font-semibold transition-colors cursor-pointer"
                 title="Copy text"
               >
                 {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
                 <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy'}</span>
               </button>
               <button
-                onClick={handlePrint}
-                className="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl flex items-center gap-1 text-[11px] font-semibold transition-colors cursor-pointer hidden sm:flex"
-                title="Print Document"
-              >
-                <Printer size={13} />
-                <span>Print</span>
-              </button>
-              <button
                 onClick={handleDownloadText}
-                className="px-2 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl flex items-center gap-1 text-[11px] font-semibold transition-colors cursor-pointer"
+                className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl flex items-center gap-1 text-[11px] font-semibold transition-colors cursor-pointer"
                 title="Download document"
               >
                 <Download size={13} />
