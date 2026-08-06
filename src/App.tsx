@@ -97,13 +97,11 @@ export default function App() {
     return INITIAL_DOCUMENTS;
   });
 
-  const [attachedFiles, setAttachedFiles] = useState<{ id: string; name: string; size: string; dataUrl?: string }[]>(() => {
-    try {
-      const stored = localStorage.getItem('signal87_attached_files');
-      if (stored) return JSON.parse(stored);
-    } catch (e) {}
-    return [];
-  });
+  // Not persisted to localStorage: the extracted text behind these chips
+  // (ingestedFiles in ResearchAssistantView) only lives in memory, so a
+  // restored chip after reload would point at content that no longer
+  // exists and mislead the user into thinking it's still attached.
+  const [attachedFiles, setAttachedFiles] = useState<{ id: string; name: string; size: string; dataUrl?: string }[]>([]);
 
   const [projects, setProjects] = useState<Project[]>(() => {
     try {
@@ -142,13 +140,6 @@ export default function App() {
       console.warn('Failed saving documents to localStorage', e);
     }
   }, [documents]);
-
-  // Persist attachedFiles to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem('signal87_attached_files', JSON.stringify(attachedFiles));
-    } catch (e) {}
-  }, [attachedFiles]);
 
   // Persist projects to localStorage
   useEffect(() => {
