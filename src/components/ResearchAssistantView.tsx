@@ -115,13 +115,15 @@ const renderFormattedText = (rawText: string) => {
         .slice(1, -1)
         .map((c) => c.trim());
 
+      const isCitationCell = (text: string) => /^\[.*\]$/.test(text.trim());
+
       elements.push(
         <div key={key} className="overflow-x-auto my-3 border border-slate-200 rounded-xl shadow-2xs">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="w-full text-left border-collapse text-[11px] leading-snug">
             <thead>
               <tr className="bg-slate-100/90 border-b border-slate-200 text-slate-900 font-bold">
                 {headerCols.map((col, cIdx) => (
-                  <th key={cIdx} className="p-2.5">
+                  <th key={cIdx} className="py-1.5 px-2.5 align-top max-w-[180px]">
                     {parseInlineStyles(col)}
                   </th>
                 ))}
@@ -136,7 +138,12 @@ const renderFormattedText = (rawText: string) => {
                 return (
                   <tr key={rIdx} className="hover:bg-slate-50/80 transition-colors">
                     {cols.map((col, cIdx) => (
-                      <td key={cIdx} className="p-2.5 text-slate-700">
+                      <td
+                        key={cIdx}
+                        className={`py-1.5 px-2.5 align-top max-w-[180px] break-words text-slate-700 ${
+                          isCitationCell(col) ? 'font-mono text-[10px] text-slate-500' : ''
+                        }`}
+                      >
                         {parseInlineStyles(col)}
                       </td>
                     ))}
