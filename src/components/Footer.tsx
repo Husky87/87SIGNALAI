@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 1: Company & Media */}
           <div className="space-y-3">
-            <span className="font-bold text-slate-900 uppercase tracking-wider text-[11px] text-slate-400 block">
+            <span className="font-bold uppercase tracking-wider text-[11px] text-slate-400 block">
               Company & Media
             </span>
             <ul className="space-y-1 text-xs">
@@ -81,7 +81,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 2: Governance & Security */}
           <div className="space-y-3">
-            <span className="font-bold text-slate-900 uppercase tracking-wider text-[11px] text-slate-400 block">
+            <span className="font-bold uppercase tracking-wider text-[11px] text-slate-400 block">
               Trust & Privacy
             </span>
             <ul className="space-y-1 text-xs">

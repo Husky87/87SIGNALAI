@@ -8,7 +8,9 @@ import {
   Sparkles,
   FileSpreadsheet,
   Edit2,
-  Save
+  Save,
+  Bookmark,
+  Maximize2
 } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import Spreadsheet from 'react-spreadsheet';
@@ -294,9 +296,13 @@ export const ActionRouterCard: React.FC<{
   onInspectInCanvas?: (msg: ChatMessage) => void;
 }> = ({
   msg,
+  userPrompt,
   copiedMsgId,
+  savedReportIds,
   onCopy,
-  onExportPDF
+  onExportPDF,
+  onSaveReport,
+  onInspectInCanvas
 }) => {
   const [shareCopied, setShareCopied] = useState(false);
   const [isEditingExcel, setIsEditingExcel] = useState(false);
@@ -371,6 +377,31 @@ export const ActionRouterCard: React.FC<{
           )}
           <span>{copiedMsgId === msg.id ? 'Copied' : 'Copy'}</span>
         </button>
+
+        {onSaveReport && (
+          <button
+            onClick={() => onSaveReport(msg.id, userPrompt ? userPrompt.slice(0, 60) : '', msg.text)}
+            disabled={savedReportIds?.has(msg.id)}
+            className={`px-2.5 py-1.5 hover:bg-slate-100 ${
+              savedReportIds?.has(msg.id) ? 'text-emerald-700' : 'text-slate-500'
+            } hover:text-emerald-700 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-1.5 text-xs disabled:cursor-default`}
+            title={savedReportIds?.has(msg.id) ? 'Saved to Reports' : 'Save to Reports'}
+          >
+            <Bookmark size={14} className={savedReportIds?.has(msg.id) ? 'fill-current' : ''} />
+            <span>{savedReportIds?.has(msg.id) ? 'Saved' : 'Save to Reports'}</span>
+          </button>
+        )}
+
+        {onInspectInCanvas && (
+          <button
+            onClick={() => onInspectInCanvas(msg)}
+            className="px-2.5 py-1.5 hover:bg-slate-100 text-slate-500 hover:text-slate-800 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-1.5 text-xs"
+            title="Inspect in Canvas"
+          >
+            <Maximize2 size={14} />
+            <span>Inspect in Canvas</span>
+          </button>
+        )}
 
         {msg.excelExportData && (
           <>

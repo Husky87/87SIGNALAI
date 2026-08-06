@@ -294,14 +294,14 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
         title: file.name,
         type: docType,
         sizeBytes: file.size,
-        uploadDate: new Date().toLocaleDateString(),
+        uploadDate: new Date().toISOString(),
         tags: ['Active Workspace', 'Ingested'],
         owner: 'ceo@signal87.ai',
         organization: 'Signal87',
         status: 'ready',
         aiIndexed: true,
         embeddingsComplete: true,
-        versionHistory: [{ version: 1, updatedAt: new Date().toLocaleDateString(), updatedBy: 'User', changeNote: 'Uploaded via Workspace Canvas' }],
+        versionHistory: [{ version: 1, updatedAt: new Date().toISOString(), updatedBy: 'User', changeNote: 'Uploaded via Workspace Canvas' }],
         permissions: 'Private',
         summary: `Active Ingested File (${parsed.summaryInfo})`,
         contentPreview: parsed.extractedText,
@@ -603,7 +603,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
 
       setActiveArtifact({
         id: aiMsg.id,
-        title: userMsgText.slice(0, 45) + '...',
+        title: userMsgText.slice(0, 45) + (userMsgText.length > 45 ? '...' : ''),
         content: responseText,
         citations: aiMsg.citations,
         timestamp: aiMsg.timestamp
@@ -898,7 +898,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                                 onInspectInCanvas={(item) => {
                                   setActiveArtifact({
                                     id: item.id,
-                                    title: item.text.slice(0, 40) + '...',
+                                    title: item.text.slice(0, 40) + (item.text.length > 40 ? '...' : ''),
                                     content: item.text,
                                     citations: item.citations,
                                     timestamp: item.timestamp
@@ -984,7 +984,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isParsingFile}
-                      className="flex items-center gap-1.5 text-xs text-[#a3a3a3] bg-[#212121] hover:bg-[#2b2b2b] hover:text-[#e3e3e3] px-3 py-1.5 rounded-lg border border-[#333] transition-colors cursor-pointer disabled:opacity-50"
+                      className="flex items-center gap-1.5 text-xs text-[#a3a3a3] bg-[#212121] hover:bg-[#2b2b2b] hover:text-[#e3e3e3] px-3 py-1.5 rounded-lg border border-[#37393b] transition-colors cursor-pointer disabled:opacity-50"
                     >
                       {isParsingFile ? <Loader2 size={14} className="animate-spin text-sky-400" /> : <span>📎</span>}
                       <span>Upload Document</span>

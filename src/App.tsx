@@ -160,6 +160,8 @@ export default function App() {
   const [isDrivePickerOpen, setIsDrivePickerOpen] = useState(false);
   const [isDriveIntroOpen, setIsDriveIntroOpen] = useState(false);
   const [selectedDocForDetail, setSelectedDocForDetail] = useState<DocumentItem | null>(null);
+  const [pendingCompareDocIds, setPendingCompareDocIds] = useState<string[]>([]);
+  const [pendingSelectedProjectId, setPendingSelectedProjectId] = useState<string | null>(null);
 
   const handleDrivePortSuccess = (newDocs: DocumentItem[]) => {
     setDocuments((prev) => [...newDocs, ...prev]);
@@ -396,6 +398,7 @@ export default function App() {
   };
 
   const handleCompareFromDocs = (docsToCompare: DocumentItem[]) => {
+    setPendingCompareDocIds(docsToCompare.map((d) => d.id));
     setCurrentTab('compare');
   };
 
@@ -683,7 +686,10 @@ export default function App() {
                 onSelectTab={setCurrentTab}
                 onOpenUpload={() => setIsUploadOpen(true)}
                 onSelectDocument={setSelectedDocForDetail}
-                onSelectProject={(p) => setCurrentTab('projects')}
+                onSelectProject={(p) => {
+                  setPendingSelectedProjectId(p.id);
+                  setCurrentTab('projects');
+                }}
               />
             </div>
           )}
@@ -706,6 +712,7 @@ export default function App() {
               <ProjectsView
                 projects={projects}
                 documents={documents}
+                initialSelectedProjectId={pendingSelectedProjectId}
                 onSelectProject={() => {}}
                 onCreateProject={handleCreateProject}
                 onSelectDocument={setSelectedDocForDetail}
@@ -734,7 +741,7 @@ export default function App() {
           )}
 
           {currentTab === 'compare' && (
-            <MultiDocCompareView documents={documents} />
+            <MultiDocCompareView documents={documents} initialSelectedIds={pendingCompareDocIds} />
           )}
 
           {currentTab === 'reports' && (
@@ -814,6 +821,7 @@ export default function App() {
         document={selectedDocForDetail}
         onClose={() => setSelectedDocForDetail(null)}
         onOpenCompare={(doc) => {
+          setPendingCompareDocIds([doc.id]);
           setSelectedDocForDetail(null);
           setCurrentTab('compare');
         }}
