@@ -884,7 +884,7 @@ export const ResearchAssistantView: React.FC<ResearchAssistantViewProps> = ({
                           </div>
                         ) : (
                           <div className="flex gap-3 sm:gap-4 items-start my-4">
-                            <div className="w-8 h-8 rounded-full bg-[#1e1f20] text-[#e3e3e3] border border-[#37393b] flex items-center justify-center flex-shrink-0 mt-1">
+                            <div className="w-8 h-8 rounded-full bg-[#1e1f20] text-[#e3e3e3] flex items-center justify-center flex-shrink-0 mt-1">
                               <Signal87Logo size={16} />
                             </div>
                             <div className="flex-1 min-w-0">
