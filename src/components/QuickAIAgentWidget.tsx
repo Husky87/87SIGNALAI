@@ -289,7 +289,7 @@ export const QuickAIAgentWidget: React.FC<QuickAIAgentWidgetProps> = ({
             {loading && (
               <div className="flex items-center gap-2 p-3 bg-slate-900/80 border border-slate-800 rounded-2xl w-fit text-xs text-sky-400 animate-pulse">
                 <RefreshCw size={14} className="animate-spin" />
-                <span>Scanning 12 documents for answer...</span>
+                <span>Scanning {documents.length} document{documents.length === 1 ? '' : 's'} for answer...</span>
               </div>
             )}
 

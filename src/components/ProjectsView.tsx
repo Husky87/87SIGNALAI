@@ -19,6 +19,7 @@ interface ProjectsViewProps {
   onSelectProject: (proj: Project) => void;
   onCreateProject: (proj: Project) => void;
   onSelectDocument?: (doc: DocumentItem) => void;
+  initialSelectedProjectId?: string | null;
 }
 
 export const ProjectsView: React.FC<ProjectsViewProps> = ({
@@ -26,9 +27,12 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({
   documents,
   onSelectProject,
   onCreateProject,
-  onSelectDocument
+  onSelectDocument,
+  initialSelectedProjectId
 }) => {
-  const [selectedProj, setSelectedProj] = useState<Project | null>(projects[0] || null);
+  const [selectedProj, setSelectedProj] = useState<Project | null>(
+    (initialSelectedProjectId && projects.find((p) => p.id === initialSelectedProjectId)) || projects[0] || null
+  );
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [descInput, setDescInput] = useState('');

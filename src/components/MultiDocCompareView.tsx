@@ -16,10 +16,11 @@ import { DocumentItem, ComparisonResult } from '../types';
 
 interface MultiDocCompareViewProps {
   documents: DocumentItem[];
+  initialSelectedIds?: string[];
 }
 
-export const MultiDocCompareView: React.FC<MultiDocCompareViewProps> = ({ documents }) => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+export const MultiDocCompareView: React.FC<MultiDocCompareViewProps> = ({ documents, initialSelectedIds }) => {
+  const [selectedIds, setSelectedIds] = useState<string[]>(initialSelectedIds || []);
   const [loading, setLoading] = useState(false);
   const [comparison, setComparison] = useState<ComparisonResult | null>(null);
 
