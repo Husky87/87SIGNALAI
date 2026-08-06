@@ -20,7 +20,9 @@ interface MultiDocCompareViewProps {
 }
 
 export const MultiDocCompareView: React.FC<MultiDocCompareViewProps> = ({ documents, initialSelectedIds }) => {
-  const [selectedIds, setSelectedIds] = useState<string[]>(initialSelectedIds || []);
+  const [selectedIds, setSelectedIds] = useState<string[]>(
+    (initialSelectedIds || []).filter((id) => documents.some((d) => d.id === id))
+  );
   const [loading, setLoading] = useState(false);
   const [comparison, setComparison] = useState<ComparisonResult | null>(null);
 
